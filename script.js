@@ -25,7 +25,7 @@ scene.add(directionLight);
 
 
 const startBTn = document.querySelector("#startAR");
-const video= document.querySelector("video");
+/* const video= document.querySelector("video"); */
 const loader= new GLTFLoader();
 
 let bottle;
@@ -70,12 +70,12 @@ startBTn.addEventListener("click",async()=>{
         if(bottle){
             bottle.rotation.y+=0.015;
         }
-        if(modelVisible){
+        /* if(modelVisible){
              video.style.filter="blur(6px)";
         }
         else{
               video.style.filter="none";   
-        }
+        } */
         renderer.render(scene,camera);
     });
 });
