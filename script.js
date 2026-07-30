@@ -21,11 +21,12 @@ scene.add(directionLight);
 const startBTn = document.querySelector("#startAR");
 const loader= new GLTFLoader();
 
+let bottle;
 loader.load("/coca_cola_bottle.glb",(gltf)=>{
-    const bottle= gltf.scene;
+    bottle= gltf.scene;
     bottle.traverse((child)=>{
         if(child.isMesh){
-           if(child.name==="Cube_Background_0"){
+            if(child.name==="Cube_Background_0"){
                 child.visible=false;
             }
         }
@@ -40,6 +41,8 @@ startBTn.addEventListener("click",async()=>{
     await mindarThree.start();
     startBTn.style.display="none";
     renderer.setAnimationLoop(()=>{
+
+        bottle.rotation.y+=0.01;
         renderer.render(scene,camera);
     });
 });
