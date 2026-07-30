@@ -1,6 +1,7 @@
 import * as THREE from "three"
 import  {MindARThree} from "mind-ar/dist/mindar-image-three.prod.js";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
+import { L } from "mind-ar/dist/controller-mGt1s8dJ";
 
 const mindarThree = new MindARThree({
     container: document.querySelector(".scan-frame"),
@@ -39,7 +40,7 @@ loader.load("/coca_cola_bottle.glb",(gltf)=>{
             }
         }
     });
-    bottle.scale.set(3,3,3);
+    bottle.scale.set(2,2,2);
     bottle.position.set(0,-0.5,0);
     
     bottle.rotation.y=Math.PI;
@@ -81,3 +82,25 @@ startBTn.addEventListener("click",async()=>{
 });
 
 
+// cap open
+let cap;
+cap= bottle.getObjectByName("Circle002_Lid_0");
+cap.userData.originalPosition = cap.position.clone();
+
+const raycaster= new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+const frame = document.querySelector(".scan-frame");
+frame.addEventListener("click",(event)=>{
+    if(!bottle || !cap){
+        return;
+    }
+    const rect = renderer.docElement.getBoundingClientRect();
+    mouse.x=((event.clientX-rect.left)/rect.width)*2-1;  
+     mouse.y=-((event.clientY-rect.top)/rect.height)*2-1;
+    raycaster.setFromCamera(mouse,camera);
+    const intersects =raycaster.intersectObject(cap,true);
+    if(intersects.length>0){
+        cap.position.y+=0.3;
+    }  
+})
