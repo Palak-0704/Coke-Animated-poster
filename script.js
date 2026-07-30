@@ -32,8 +32,10 @@ const loader= new GLTFLoader();
 let bottle;
 let modelVisible=false;
 let cap;
-let capOpen=false;
-let capVelocity= 0;
+let capOpen = false;
+let capVelocityY = 0;
+let capVelocityX = 0;
+let capFlying = false;
 /* loader.load("/coca_cola_bottle.glb",(gltf)=>{
 
     bottle= gltf.scene;
@@ -136,7 +138,6 @@ loader.load("/coca_cola_bottle.glb", (gltf) => {
     });
 
 });
-
 startBTn.addEventListener("click",async()=>{
     await mindarThree.start();
     startBTn.style.display="none";
@@ -144,11 +145,17 @@ startBTn.addEventListener("click",async()=>{
         if(bottle && !capOpen){
             bottle.rotation.y+=0.015;
         }
-        if(capOpen && cap){
-            cap.position.y +=capVelocity;
-            capVelocity -=0.01;
-            if(capVelocity<=0){
-                capVelocity=0;
+        if(capFlying && cap){
+            cap.position.y +=capVelocityY;
+
+            cap.position.x+=capVelocityX;
+
+            capVelocityY -= 0.002;
+            cap.rotation.z-=0.15;
+
+            if (capVelocityY < 0 && cap.position.y <= -0.5)
+                capFlying=false;
+                cap.position.y = -1.5;
             }
         }
         renderer.render(scene,camera);
@@ -173,7 +180,9 @@ frame.addEventListener("click",(event)=>{
     const intersects =raycaster.intersectObject(bottle,true);
 
     if(intersects.length>0 && !capOpen){
-        capVelocity=0.1;
+        capVelocityY = 0.08;
+        capVelocityX=0.01;
         capOpen=true;
+        capFlying=true;
     }  
 })
