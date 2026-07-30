@@ -25,7 +25,9 @@ loader.load("/coca_cola_bottle.glb",(gltf)=>{
     const bottle= gltf.scene;
     bottle.traverse((child)=>{
         if(child.isMesh){
-            console.log(child.name);
+           if(child.name==="Cube_Background_0"){
+                child.visible=false;
+            }
         }
     });
     bottle.scale.set(2,2,2);
