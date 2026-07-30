@@ -66,7 +66,7 @@ let capVelocity= 0;
     });
     anchor.group.add(bottle);
 }); */
-loader.load("/coca_cola_bottle.glb", (gltf) => {
+/* loader.load("/coca_cola_bottle.glb", (gltf) => {
 
     bottle = gltf.scene;
 
@@ -109,8 +109,33 @@ loader.load("/coca_cola_bottle.glb", (gltf) => {
 
     anchor.group.add(bottle);
 
-});
+}); */
+loader.load("/coca_cola_bottle.glb", (gltf) => {
 
+    bottle = gltf.scene;
+
+    cap = bottle.getObjectByName("Circle002_Lid_0");
+
+    // Bottle ki original settings
+    bottle.scale.set(2, 2, 2);
+    bottle.position.set(0, -0.5, 0);
+    bottle.rotation.y = Math.PI;
+
+    // Bottle ko pehle anchor mein add karo
+    anchor.group.add(bottle);
+
+    // Ab cap ko bottle se nikaal kar
+    // uski WORLD position/rotation/scale preserve karo
+    anchor.group.attach(cap);
+
+    // Background hide
+    bottle.traverse((child) => {
+        if (child.isMesh && child.name === "Cube_Background_0") {
+            child.visible = false;
+        }
+    });
+
+});
 
 startBTn.addEventListener("click",async()=>{
     await mindarThree.start();
