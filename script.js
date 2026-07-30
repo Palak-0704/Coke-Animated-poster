@@ -153,10 +153,11 @@ startBTn.addEventListener("click",async()=>{
             capVelocityY -= 0.002;
             cap.rotation.z-=0.08;
 
-            if (capVelocityY < 0 && cap.position.y <= -0.5)
+            if (capVelocityY < 0 && cap.position.y <= -0.5){
                 capFlying=false;
                 cap.position.y = -1.5;
             }
+        }
         renderer.render(scene,camera);
     });
 });
