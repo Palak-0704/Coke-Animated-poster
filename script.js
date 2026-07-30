@@ -34,11 +34,12 @@ let modelVisible=false;
 let cap;
 let capOpen=false;
 let capVelocity= 0;
-loader.load("/coca_cola_bottle.glb",(gltf)=>{
+/* loader.load("/coca_cola_bottle.glb",(gltf)=>{
 
     bottle= gltf.scene;
     
     cap = bottle.getObjectByName("Circle002_Lid_0");
+
     
     bottle.scale.set(2,2,2);
     bottle.position.set(0,-0.5,0);
@@ -64,7 +65,51 @@ loader.load("/coca_cola_bottle.glb",(gltf)=>{
         }
     });
     anchor.group.add(bottle);
+}); */
+loader.load("/coca_cola_bottle.glb", (gltf) => {
+
+    bottle = gltf.scene;
+
+    // Cap find karo
+    cap = bottle.getObjectByName("Circle002_Lid_0");
+
+    // Cap ki original local transform save karo
+    const capPosition = cap.position.clone();
+    const capRotation = cap.rotation.clone();
+    const capScale = cap.scale.clone();
+
+    // Cap ko bottle se remove karo
+    bottle.remove(cap);
+
+    // Cap ko anchor mein add karo
+    anchor.group.add(cap);
+
+    // Cap ki transform restore karo
+    cap.position.copy(capPosition);
+    cap.rotation.copy(capRotation);
+    cap.scale.copy(capScale);
+
+
+    // Background hide
+    bottle.traverse((child) => {
+        if (child.isMesh) {
+            if (child.name === "Cube_Background_0") {
+                child.visible = false;
+            }
+        }
+    });
+
+
+    // Bottle
+    bottle.scale.set(2, 2, 2);
+    bottle.position.set(0, -0.5, 0);
+    bottle.rotation.y = Math.PI;
+
+    anchor.group.add(bottle);
+
 });
+
+
 startBTn.addEventListener("click",async()=>{
     await mindarThree.start();
     startBTn.style.display="none";
@@ -99,7 +144,7 @@ frame.addEventListener("click",(event)=>{
     mouse.y=-((event.clientY-rect.top)/rect.height)*2+1;
     raycaster.setFromCamera(mouse,camera);
     const intersects =raycaster.intersectObject(bottle,true);
-    
+
     if(intersects.length>0 && !capOpen){
         capVelocity=0.5;
         capOpen=true;
