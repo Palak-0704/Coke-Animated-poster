@@ -32,6 +32,7 @@ const loader= new GLTFLoader();
 let bottle;
 let modelVisible=false;
 let cap;
+let capOpen=false;
 loader.load("/coca_cola_bottle.glb",(gltf)=>{
     bottle= gltf.scene;
     cap = bottle.getObjectByName("Circle002_Lid_0");
@@ -76,7 +77,9 @@ frame.addEventListener("click",(event)=>{
     mouse.y=-((event.clientY-rect.top)/rect.height)*2+1;
     raycaster.setFromCamera(mouse,camera);
     const intersects =raycaster.intersectObject(bottle,true);
-    if(intersects.length>0){
+    if(intersects.length>0 && !capOpen){
         cap.position.y+=0.3;
+        cap.rotation.y+=Math.PI*2;
+        capOpen=true;
     }  
 })
