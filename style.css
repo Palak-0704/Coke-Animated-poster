@@ -34,3 +34,10 @@ body{
     font-size: clamp(1rem,2vw,1.2rem);
     cursor: pointer;
 }
+.mindar-ui-overlay{
+    backdrop-filter: blur(3px);
+}
+.video{
+    filter: blur(6px);
+    transform: scale(1.05);
+}
