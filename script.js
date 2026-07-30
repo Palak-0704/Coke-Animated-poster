@@ -157,7 +157,6 @@ startBTn.addEventListener("click",async()=>{
                 capFlying=false;
                 cap.position.y = -1.5;
             }
-        }
         renderer.render(scene,camera);
     });
 });
