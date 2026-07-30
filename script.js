@@ -84,6 +84,8 @@ loader.load("/coca_cola_bottle.glb", (gltf) => {
     // Cap ko anchor mein add karo
     anchor.group.add(cap);
 
+    cap.scale.set(1,1,1);
+
     // Cap ki transform restore karo
     cap.position.copy(capPosition);
     cap.rotation.copy(capRotation);
