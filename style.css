@@ -34,9 +34,6 @@ body{
     font-size: clamp(1rem,2vw,1.2rem);
     cursor: pointer;
 }
-.mindar-ui-overlay{
-    backdrop-filter: blur(3px);
-}
 video{
     transform: scale(1.05);
 }

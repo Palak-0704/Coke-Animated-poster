@@ -40,7 +40,7 @@ loader.load("/coca_cola_bottle.glb",(gltf)=>{
         }
     });
     bottle.scale.set(3,3,3);
-    bottle.position.set(0,0,0);
+    bottle.position.set(0,-0.5,0);
     
     bottle.rotation.y=Math.PI;
     anchor.group.add(bottle);
