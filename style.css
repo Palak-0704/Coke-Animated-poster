@@ -37,7 +37,6 @@ body{
 .mindar-ui-overlay{
     backdrop-filter: blur(3px);
 }
-.video{
-    filter: blur(6px);
+video{
     transform: scale(1.05);
 }

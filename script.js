@@ -9,6 +9,12 @@ const mindarThree = new MindARThree({
 
 const {renderer, scene, camera}=mindarThree;
 const anchor = mindarThree.addAnchor(0);
+anchor.onTargetFound=()=>{
+    modelVisible=true;
+};
+anchor.onTargetLost=()=>{
+    modelVisible=false;
+};
 
 //add lighting 
 const ambientLight = new THREE.AmbientLight(0xffffff,2);
@@ -19,9 +25,11 @@ scene.add(directionLight);
 
 
 const startBTn = document.querySelector("#startAR");
+const video= document.querySelector("video");
 const loader= new GLTFLoader();
 
 let bottle;
+let modelVisible=false;
 loader.load("/coca_cola_bottle.glb",(gltf)=>{
     bottle= gltf.scene;
     bottle.traverse((child)=>{
@@ -31,18 +39,43 @@ loader.load("/coca_cola_bottle.glb",(gltf)=>{
             }
         }
     });
-    bottle.scale.set(4,4,4);
+    bottle.scale.set(3,3,3);
     bottle.position.set(0,0,0);
     
     bottle.rotation.y=Math.PI;
     anchor.group.add(bottle);
 });
+/* 
+anchor.group.addEventListener("targetFound",()=>{
+    modelVisible=true;
+    document.querySelector("video").style.filter="blur(6px)";
+});
+anchor.group.addEventListener("targetLost",()=>{
+    modelVisible=false;
+    document.querySelector("video").style.filter="none";
+}); 
+
+anchor.onTargetFound=()=>{
+         modelVisible= true;
+    document.querySelector("video").style.filter="blur(6px)";
+};
+anchor.onTargetLost=()=>{
+    modelVisible= false;
+    document.querySelector("video").style.filter="none";
+}; */
 startBTn.addEventListener("click",async()=>{
     await mindarThree.start();
     startBTn.style.display="none";
     renderer.setAnimationLoop(()=>{
-
-        bottle.rotation.y+=0.015;
+        if(bottle){
+            bottle.rotation.y+=0.015;
+        }
+        if(modelVisible){
+             video.style.filter="blur(6px)";
+        }
+        else{
+              video.style.filter="none";   
+        }
         renderer.render(scene,camera);
     });
 });
