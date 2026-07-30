@@ -35,9 +35,27 @@ let cap;
 let capOpen=false;
 let capVelocity= 0;
 loader.load("/coca_cola_bottle.glb",(gltf)=>{
+
     bottle= gltf.scene;
+    
     cap = bottle.getObjectByName("Circle002_Lid_0");
-    cap.userData.originalPosition = cap.position.clone();
+    
+    bottle.scale.set(2,2,2);
+    bottle.position.set(0,-0.5,0);
+    bottle.rotation.y=Math.PI;
+
+
+    const capPosition = new THREE.Vector3();
+    cap.getWorldPosition(capPosition);
+    
+    bottle.remove(cap);
+
+    anchor.group.add(cap);
+
+    anchor.worldToLocal(capPosition);
+    
+    cap.position.copy(capPosition);
+
     bottle.traverse((child)=>{
         if(child.isMesh){
             if(child.name==="Cube_Background_0"){
@@ -45,10 +63,6 @@ loader.load("/coca_cola_bottle.glb",(gltf)=>{
             }
         }
     });
-    bottle.scale.set(2,2,2);
-    bottle.position.set(0,-0.5,0);
-    
-    bottle.rotation.y=Math.PI;
     anchor.group.add(bottle);
 });
 startBTn.addEventListener("click",async()=>{
@@ -58,8 +72,12 @@ startBTn.addEventListener("click",async()=>{
         if(bottle && !capOpen){
             bottle.rotation.y+=0.015;
         }
-        if(capOpen){
+        if(capOpen && cap){
             cap.position.y +=capVelocity;
+            capVelocity -=0.01;
+            if(capVelocity<=0){
+                capVelocity=0;
+            }
         }
         renderer.render(scene,camera);
     });
@@ -81,6 +99,7 @@ frame.addEventListener("click",(event)=>{
     mouse.y=-((event.clientY-rect.top)/rect.height)*2+1;
     raycaster.setFromCamera(mouse,camera);
     const intersects =raycaster.intersectObject(bottle,true);
+    
     if(intersects.length>0 && !capOpen){
         capVelocity=0.5;
         capOpen=true;
