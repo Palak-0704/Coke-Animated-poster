@@ -173,7 +173,7 @@ frame.addEventListener("click",(event)=>{
     const intersects =raycaster.intersectObject(bottle,true);
 
     if(intersects.length>0 && !capOpen){
-        capVelocity=0.5;
+        capVelocity=0.1;
         capOpen=true;
     }  
 })
