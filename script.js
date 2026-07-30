@@ -55,7 +55,7 @@ startBTn.addEventListener("click",async()=>{
     await mindarThree.start();
     startBTn.style.display="none";
     renderer.setAnimationLoop(()=>{
-        if(bottle){
+        if(bottle && !capOpen){
             bottle.rotation.y+=0.015;
         }
         if(capOpen){
@@ -82,7 +82,7 @@ frame.addEventListener("click",(event)=>{
     raycaster.setFromCamera(mouse,camera);
     const intersects =raycaster.intersectObject(bottle,true);
     if(intersects.length>0 && !capOpen){
-        capVelocity=0.2;
+        capVelocity=0.5;
         capOpen=true;
     }  
 })
