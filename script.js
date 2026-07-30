@@ -31,7 +31,7 @@ loader.load("/coca_cola_bottle.glb",(gltf)=>{
             }
         }
     });
-    bottle.scale.set(2,2,2);
+    bottle.scale.set(4,4,4);
     bottle.position.set(0,0,0);
     
     bottle.rotation.y=Math.PI;
@@ -42,7 +42,7 @@ startBTn.addEventListener("click",async()=>{
     startBTn.style.display="none";
     renderer.setAnimationLoop(()=>{
 
-        bottle.rotation.y+=0.01;
+        bottle.rotation.y+=0.015;
         renderer.render(scene,camera);
     });
 });
