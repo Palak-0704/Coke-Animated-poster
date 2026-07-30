@@ -33,6 +33,7 @@ let bottle;
 let modelVisible=false;
 let cap;
 let capOpen=false;
+let capVelocity= 0;
 loader.load("/coca_cola_bottle.glb",(gltf)=>{
     bottle= gltf.scene;
     cap = bottle.getObjectByName("Circle002_Lid_0");
@@ -57,6 +58,9 @@ startBTn.addEventListener("click",async()=>{
         if(bottle){
             bottle.rotation.y+=0.015;
         }
+        if(capOpen){
+            cap.position.y +=capVelocity;
+        }
         renderer.render(scene,camera);
     });
 });
@@ -78,8 +82,7 @@ frame.addEventListener("click",(event)=>{
     raycaster.setFromCamera(mouse,camera);
     const intersects =raycaster.intersectObject(bottle,true);
     if(intersects.length>0 && !capOpen){
-        cap.position.y+=0.3;
-        cap.rotation.y+=Math.PI*2;
+        capVelocity=0.2;
         capOpen=true;
     }  
 })
