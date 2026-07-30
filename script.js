@@ -151,7 +151,7 @@ startBTn.addEventListener("click",async()=>{
             cap.position.x+=capVelocityX;
 
             capVelocityY -= 0.002;
-            cap.rotation.z-=0.15;
+            cap.rotation.z-=0.08;
 
             if (capVelocityY < 0 && cap.position.y <= -0.5)
                 capFlying=false;
