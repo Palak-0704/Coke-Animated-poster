@@ -20,16 +20,20 @@ scene.add(directionLight);
 
 
 const startBTn = document.querySelector("#startAR");
-const video= document.querySelector("video");
 const loader= new GLTFLoader();
 
+let video;
 anchor.onTargetFound=()=>{
     modelVisible=true;
-    video.style.filter = "blur(6px)";
+    if(video){
+        video.style.filter = "blur(6px)";
+    }
 };
 anchor.onTargetLost=()=>{
     modelVisible=false;
-    video.style.filter = "none";
+    if(video){
+        video.style.filter = "none";
+    }
 };
 let bottle;
 let modelVisible=false;
@@ -142,6 +146,7 @@ loader.load("/coca_cola_bottle.glb", (gltf) => {
 });
 startBTn.addEventListener("click",async()=>{
     await mindarThree.start();
+    video = document.querySelector(".scan-frame video");
     startBTn.style.display="none";
     renderer.setAnimationLoop(()=>{
         if(bottle && !capOpen){
