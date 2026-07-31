@@ -45,10 +45,11 @@ video{
 
     display: none;
 
-    font-family: "Pacifico", cursive;
-    font-size: clamp(45px, 10vw, 120px);
+    font-family: "Lobster", cursive;
+    font-size: clamp(55px, 12vw, 150px);
     font-weight: 400;
-    color: white;
+
+    color: #e31837;
 
     text-align: center;
     white-space: nowrap;
@@ -57,11 +58,9 @@ video{
     pointer-events: none;
 
     text-shadow:
-        3px 3px 0px #c40000,
-        -2px -2px 0px #c40000,
-        0px 0px 20px rgba(255, 255, 255, 0.7);
+        0 3px 8px rgba(0, 0, 0, 0.35);
 
-    animation: colaPop 0.8s ease-out forwards;
+    animation: cocaPop 0.8s ease-out forwards;
 }
 
 @keyframes colaPop {
