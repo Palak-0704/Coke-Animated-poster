@@ -84,6 +84,10 @@ startBTn.addEventListener("click",async()=>{
             cap.rotation.y += 0.12;
             cap.rotation.z += 0.08;
         }
+        if(fizz_active && fizz){
+            fizz.position.y+=0.01;
+            fizz.position.x+=Math.sin(Date.now()*0.05)*0.001;
+        }
         renderer.render(scene,camera);
     });
 });
@@ -114,6 +118,7 @@ frame.addEventListener("click",(event)=>{
         capOpen=true;
         capFlying=true;
         fizz.visible=true;
+        fizz_active=true;
     }  
 })
 
@@ -147,6 +152,7 @@ function createFizz(){
             material
         );
         fizz.visible=false;
-        fizz.position.set(0,0.8,0)
+        fizz.position.set(0,0.7,0)
+        fizz.scale.set(2,2,2);
         anchor.group.add(fizz);
 }
