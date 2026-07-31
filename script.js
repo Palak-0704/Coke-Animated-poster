@@ -130,7 +130,7 @@ loader.load("/coca_cola_bottle.glb", (gltf) => {
 
     // Ab cap ko bottle se nikaal kar
     // uski WORLD position/rotation/scale preserve karo
-    anchor.group.attach(cap);
+    /* anchor.group.attach(cap); */
 
     // Background hide
     bottle.traverse((child) => {
@@ -151,14 +151,12 @@ startBTn.addEventListener("click",async()=>{
             cap.position.y +=capVelocityY;
 
             cap.position.x+=capVelocityX;
-
-            capVelocityY -= 0.002;
             cap.rotation.z-=0.08;
 
-            if (capVelocityY < 0 && cap.position.y <= -0.5){
+            /* if (capVelocityY < 0 && cap.position.y <= -0.5){
                 capFlying=false;
                 cap.position.y = -0.5;
-            }
+            } */
         }
         renderer.render(scene,camera);
     });
@@ -182,8 +180,11 @@ frame.addEventListener("click",(event)=>{
     const intersects =raycaster.intersectObject(bottle,true);
 
     if(intersects.length>0 && !capOpen){
+        anchor.group.attach(cap);
+
         capVelocityY = 0.08;
         capVelocityX=0.01;
+
         capOpen=true;
         capFlying=true;
     }  
