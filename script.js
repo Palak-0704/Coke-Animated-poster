@@ -69,6 +69,7 @@ loader.load("/coca_cola_bottle.glb", (gltf) => {
         }
     });
     /* createFizz(); */
+    createFoam();
 
 });
 startBTn.addEventListener("click",async()=>{
@@ -91,6 +92,13 @@ startBTn.addEventListener("click",async()=>{
             fizz.position.y+=0.01;
             fizz.position.x+=Math.sin(Date.now()*0.05)*0.001;
         } */
+        if (foamActive && foam) {
+            foam.position.y += 0.01;
+            if (foam.position.y > 1.2) {
+                foam.visible = false;
+                foamActive = false;
+            }
+        }
         renderer.render(scene,camera);
     });
 });
@@ -120,8 +128,12 @@ frame.addEventListener("click",(event)=>{
 
         capOpen=true;
         capFlying=true;
+        foam.visible = true;
+        foamActive = true;
+
         bottleOpenSound.currentTime=0;
         bottleOpenSound.play();
+        
         setTimeout(() => {
             colaFizzSound.currentTime = 0;
             colaFizzSound.play();
@@ -165,3 +177,62 @@ function createFizz(){
     /* fizz.scale.set(2, 2, 2); 
     anchor.group.add(fizz);
 } */
+
+let foam;
+let foamActive = false;
+
+/* function createFoam(){
+    const geometry = new THREE.SphereGeometry(0.08, 16, 16);
+
+    const material = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.9
+    });
+
+    foam = new THREE.Mesh(geometry, material);
+
+    foam.visible = false;
+
+    foam.position.set(0, 0.5, 0);
+    anchor.group.add(foam);
+} */
+
+function createFoam() {
+    foam = new THREE.Group();
+
+    for (let i = 0; i < 20; i++) {
+
+        const geometry = new THREE.SphereGeometry(
+            0.02 + Math.random() * 0.03,
+            8,
+            8
+        );
+
+        const material = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0.9
+        });
+
+        const bubble = new THREE.Mesh(
+            geometry,
+            material
+        );
+
+        // Bottle ke mouth ke around random position
+        bubble.position.set(
+            (Math.random() - 0.5) * 0.25,
+            Math.random() * 0.3,
+            (Math.random() - 0.5) * 0.25
+        );
+
+        foam.add(bubble);
+    }
+
+    foam.visible = false;
+
+    foam.position.set(0, 0.5, 0);
+
+    anchor.group.add(foam);
+}
