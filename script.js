@@ -87,10 +87,10 @@ startBTn.addEventListener("click",async()=>{
             cap.rotation.y += 0.12;
             cap.rotation.z += 0.08;
         }
-        if(fizz_active && fizz){
+        /* if(fizz_active && fizz){
             fizz.position.y+=0.01;
             fizz.position.x+=Math.sin(Date.now()*0.05)*0.001;
-        }
+        } */
         renderer.render(scene,camera);
     });
 });
