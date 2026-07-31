@@ -222,9 +222,9 @@ function createFoam() {
 
         // Bottle ke mouth ke around random position
         bubble.position.set(
-            (Math.random() - 0.5) * 0.25,
-            Math.random() * 0.3,
-            (Math.random() - 0.5) * 0.25
+            (Math.random() - 0.5) * 0.15,
+            Math.random() * 0.2,
+            (Math.random() - 0.5) * 0.05
         );
 
         foam.add(bubble);
@@ -232,7 +232,7 @@ function createFoam() {
 
     foam.visible = false;
 
-    foam.position.set(0, 0.35, 0);
+    foam.position.set(0, 0.35, -0.15);
 
     anchor.group.add(foam);
 }
