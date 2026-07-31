@@ -137,22 +137,22 @@ function createFizz(){
         position[i*3+1]=Math.random()*0.5;
         position[i*3+2]=(Math.random()-0.5)*0.3;
     }
-        geometry.setAttribute(
-            "position",
-            new THREE.BufferAttribute(position,3)
-        );
-        const material = new THREE.PointsMaterial({
-            color:0xffffff,
-            size:0.04,
-            transparent:true,
-            opacity:0.8
-        });
-        fizz = new THREE.Points(
-            geometry,
-            material
-        );
-        fizz.visible=false;
-        fizz.position.set(0, 0, 0);
-        fizz.scale.set(2, 2, 2);
-        bottle.add(fizz);
+    geometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(position,3)
+    );
+    const material = new THREE.PointsMaterial({
+        color:0xffff00,
+        size:0.04,
+        transparent:true,
+        opacity:0.8
+    });
+    fizz = new THREE.Points(
+        geometry,
+        material
+    );
+    fizz.visible=false;
+    fizz.position.set(0, 0, 0);
+    fizz.scale.set(2, 2, 2);
+    anchor.group.add(fizz);
 }
