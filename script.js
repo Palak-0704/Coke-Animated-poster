@@ -68,7 +68,7 @@ loader.load("/coca_cola_bottle.glb", (gltf) => {
             child.visible = false;
         }
     });
-    createFizz();
+    /* createFizz(); */
 
 });
 startBTn.addEventListener("click",async()=>{
