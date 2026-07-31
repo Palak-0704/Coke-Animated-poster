@@ -152,7 +152,7 @@ function createFizz(){
             material
         );
         fizz.visible=false;
-        fizz.position.set(0,0.7,0)
-        fizz.scale.set(2,2,2);
-        anchor.group.add(fizz);
+        fizz.position.set(0, 0, 0);
+        fizz.scale.set(2, 2, 2);
+        bottle.add(fizz);
 }
