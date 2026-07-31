@@ -33,6 +33,9 @@ anchor.onTargetFound=()=>{
     if(video){
         video.style.filter = "blur(6px)";
     }
+    if(colaText){
+        colaText.style.display="none";
+    }
 };
 anchor.onTargetLost=()=>{
     modelVisible=false;
