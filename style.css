@@ -49,7 +49,7 @@ video{
     font-size: clamp(55px, 25vw, 150px);
     font-weight: 600;
 
-    color: #e31837;
+    color: #fff;
 
     text-align: center;
     white-space: nowrap;
