@@ -46,8 +46,8 @@ video{
     display: none;
 
     font-family: "Lobster", cursive;
-    font-size: clamp(55px, 12vw, 150px);
-    font-weight: 400;
+    font-size: clamp(55px, 20vw, 150px);
+    font-weight: 600;
 
     color: #e31837;
 
