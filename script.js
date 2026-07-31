@@ -28,20 +28,36 @@ const colaFizzSound = new Audio("/coke_fizz.mp3");
 
 const colaText= document.querySelector("#colaText");
 let video;
-anchor.onTargetFound=()=>{
-    modelVisible=true;
-    if(video){
+anchor.onTargetFound = () => {
+    modelVisible = true;
+
+    if (video) {
         video.style.filter = "blur(6px)";
     }
-    if(colaText){
-        colaText.style.display="none";
+
+    // Bottle + cap dono show
+    anchor.group.visible = true;
+
+    // Coca-Cola text hide
+    if (colaText) {
+        colaText.style.display = "none";
     }
 };
-anchor.onTargetLost=()=>{
-    modelVisible=false;
-    if(video){
+
+anchor.onTargetLost = () => {
+    modelVisible = false;
+
+    if (video) {
         video.style.filter = "none";
     }
+
+    // Coca-Cola text hide
+    if (colaText) {
+        colaText.style.display = "none";
+    }
+
+    // Bottle + cap dono hide
+    anchor.group.visible = false;
 };
 let bottle;
 let modelVisible=false;
