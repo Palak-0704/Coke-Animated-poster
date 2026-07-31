@@ -37,3 +37,46 @@ body{
 video{
     transform: scale(1.05);
 }
+#colaText {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+
+    display: none;
+
+    font-family: "Pacifico", cursive;
+    font-size: clamp(45px, 10vw, 120px);
+    font-weight: 400;
+    color: white;
+
+    text-align: center;
+    white-space: nowrap;
+
+    z-index: 9999;
+    pointer-events: none;
+
+    text-shadow:
+        3px 3px 0px #c40000,
+        -2px -2px 0px #c40000,
+        0px 0px 20px rgba(255, 255, 255, 0.7);
+
+    animation: colaPop 0.8s ease-out forwards;
+}
+
+@keyframes colaPop {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.3);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.15);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
