@@ -42,82 +42,7 @@ let capOpen = false;
 let capVelocityY = 0;
 let capVelocityX = 0;
 let capFlying = false;
-/* loader.load("/coca_cola_bottle.glb",(gltf)=>{
 
-    bottle= gltf.scene;
-    
-    cap = bottle.getObjectByName("Circle002_Lid_0");
-
-    
-    bottle.scale.set(2,2,2);
-    bottle.position.set(0,-0.5,0);
-    bottle.rotation.y=Math.PI;
-
-
-    const capPosition = new THREE.Vector3();
-    cap.getWorldPosition(capPosition);
-    
-    bottle.remove(cap);
-
-    anchor.group.add(cap);
-
-    anchor.worldToLocal(capPosition);
-    
-    cap.position.copy(capPosition);
-
-    bottle.traverse((child)=>{
-        if(child.isMesh){
-            if(child.name==="Cube_Background_0"){
-                child.visible=false;
-            }
-        }
-    });
-    anchor.group.add(bottle);
-}); */
-/* loader.load("/coca_cola_bottle.glb", (gltf) => {
-
-    bottle = gltf.scene;
-
-    // Cap find karo
-    cap = bottle.getObjectByName("Circle002_Lid_0");
-
-    // Cap ki original local transform save karo
-    const capPosition = cap.position.clone();
-    const capRotation = cap.rotation.clone();
-    const capScale = cap.scale.clone();
-
-    // Cap ko bottle se remove karo
-    bottle.remove(cap);
-
-    // Cap ko anchor mein add karo
-    anchor.group.add(cap);
-
-    cap.scale.set(1,1,1);
-
-    // Cap ki transform restore karo
-    cap.position.copy(capPosition);
-    cap.rotation.copy(capRotation);
-    cap.scale.copy(capScale);
-
-
-    // Background hide
-    bottle.traverse((child) => {
-        if (child.isMesh) {
-            if (child.name === "Cube_Background_0") {
-                child.visible = false;
-            }
-        }
-    });
-
-
-    // Bottle
-    bottle.scale.set(2, 2, 2);
-    bottle.position.set(0, -0.5, 0);
-    bottle.rotation.y = Math.PI;
-
-    anchor.group.add(bottle);
-
-}); */
 loader.load("/coca_cola_bottle.glb", (gltf) => {
 
     bottle = gltf.scene;
@@ -132,9 +57,7 @@ loader.load("/coca_cola_bottle.glb", (gltf) => {
     // Bottle ko pehle anchor mein add karo
     anchor.group.add(bottle);
 
-    // Ab cap ko bottle se nikaal kar
-    // uski WORLD position/rotation/scale preserve karo
-    /* anchor.group.attach(cap); */
+    
 
     // Background hide
     bottle.traverse((child) => {
@@ -142,6 +65,7 @@ loader.load("/coca_cola_bottle.glb", (gltf) => {
             child.visible = false;
         }
     });
+    createFizz();
 
 });
 startBTn.addEventListener("click",async()=>{
@@ -159,11 +83,6 @@ startBTn.addEventListener("click",async()=>{
             cap.rotation.x += 0.18;
             cap.rotation.y += 0.12;
             cap.rotation.z += 0.08;
-
-            /* if (capVelocityY < 0 && cap.position.y <= -0.5){
-                capFlying=false;
-                cap.position.y = -0.5;
-            } */
         }
         renderer.render(scene,camera);
     });
@@ -194,5 +113,40 @@ frame.addEventListener("click",(event)=>{
 
         capOpen=true;
         capFlying=true;
+        fizz.visible=true;
     }  
 })
+
+//crreating fizz 
+let fizz;
+let fizz_active= false;
+
+function createFizz(){
+    const count =100;
+    // Creating 3d stucture of particle
+    const geometry = new THREE.BufferGeometry();
+
+    const position = new Float32Array(count*3);
+    for(let i=0;i<count;i++){
+        position[i*3]=(Math.random()-0.5)*0.3;
+        position[i*3+1]=Math.random()*0.5;
+        position[i*3+2]=(Math.random()-0.5)*0.3;
+    }
+        geometry.setAttribute(
+            "position",
+            new THREE.BufferAttribute(position,3)
+        );
+        const material = new THREE.PointsMaterial({
+            color:0xffffff,
+            size:0.04,
+            transparent:true,
+            opacity:0.8
+        });
+        fizz = new THREE.Points(
+            geometry,
+            material
+        );
+        fizz.visible=false;
+        fizz.position.set(0,0.8,0)
+        anchor.group.add(fizz);
+}
