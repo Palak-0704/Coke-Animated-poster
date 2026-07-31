@@ -6,6 +6,9 @@ import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 const mindarThree = new MindARThree({
     container: document.querySelector(".scan-frame"),
     imageTargetSrc: "/targets.mind",
+
+    filterMinCF: 0.0001,
+    filterBeta: 0.001
 });
 
 const {renderer, scene, camera}=mindarThree;
@@ -107,6 +110,15 @@ startBTn.addEventListener("click",async()=>{
             cap.rotation.y += 0.12;
             cap.rotation.z += 0.08;
         }
+        if (cap.position.y > 1.2) {
+            capFlying = false;
+    
+            // Bottle hide
+            bottle.visible = false;
+    
+            // Coca-Cola text show
+            colaText.style.display = "block";
+        }
         renderer.render(scene,camera);
     });
 });
@@ -137,14 +149,13 @@ frame.addEventListener("click",(event)=>{
         capOpen=true;
         capFlying=true;
 
-        colaText.style.display="block";
         bottleOpenSound.currentTime=0;
         bottleOpenSound.play();
         
         setTimeout(() => {
             colaFizzSound.currentTime = 0;
             colaFizzSound.play();
-        }, 200);
+        }, 500);
     }  
 })
 
