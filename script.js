@@ -6,9 +6,6 @@ import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 const mindarThree = new MindARThree({
     container: document.querySelector(".scan-frame"),
     imageTargetSrc: "/targets.mind",
-
-    filterMinCF: 0.0001,
-    filterBeta: 0.001
 });
 
 const {renderer, scene, camera}=mindarThree;
@@ -38,10 +35,12 @@ anchor.onTargetFound = () => {
         video.style.filter = "blur(6px)";
     }
 
-    // Bottle + cap dono show
     anchor.group.visible = true;
 
-    // Coca-Cola text hide
+    if (bottle) {
+        bottle.visible = true;
+    }
+
     if (colaText) {
         colaText.style.display = "none";
     }
@@ -54,13 +53,11 @@ anchor.onTargetLost = () => {
         video.style.filter = "none";
     }
 
-    // Coca-Cola text hide
+    anchor.group.visible = false;
+
     if (colaText) {
         colaText.style.display = "none";
     }
-
-    // Bottle + cap dono hide
-    anchor.group.visible = false;
 };
 let bottle;
 let modelVisible=false;
@@ -110,7 +107,7 @@ startBTn.addEventListener("click",async()=>{
             cap.rotation.y += 0.12;
             cap.rotation.z += 0.08;
         }
-        if (cap.position.y > 1.2) {
+        if (cap && capFlying && cap.position.y > 1.2) {
             capFlying = false;
     
             // Bottle hide
