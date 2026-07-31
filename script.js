@@ -22,6 +22,9 @@ scene.add(directionLight);
 const startBTn = document.querySelector("#startAR");
 const loader= new GLTFLoader();
 
+const bottleOpenSound = new Audio("/bottle_opening.mp3");
+const colaFizzSound = new Audio("/coke_fizz.mp3");
+
 let video;
 anchor.onTargetFound=()=>{
     modelVisible=true;
@@ -117,13 +120,19 @@ frame.addEventListener("click",(event)=>{
 
         capOpen=true;
         capFlying=true;
-        fizz.visible=true;
-        fizz_active=true;
+        bottleOpenSound.currentTime=0;
+        bottleOpenSound.play();
+        setTimeout(() => {
+            colaFizzSound.currentTime = 0;
+            colaFizzSound.play();
+        }, 200);
+        /* fizz.visible=true;
+        fizz_active=true; */
     }  
 })
 
 //crreating fizz 
-let fizz;
+/* let fizz;
 let fizz_active= false;
 
 function createFizz(){
@@ -153,6 +162,6 @@ function createFizz(){
     );
     fizz.visible=false;
     fizz.position.set(0, 0.5, 0);
-    /* fizz.scale.set(2, 2, 2); */
+    /* fizz.scale.set(2, 2, 2); 
     anchor.group.add(fizz);
-}
+} */
