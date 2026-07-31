@@ -93,8 +93,8 @@ startBTn.addEventListener("click",async()=>{
             fizz.position.x+=Math.sin(Date.now()*0.05)*0.001;
         } */
         if (foamActive && foam) {
-            foam.position.y += 0.01;
-            if (foam.position.y > 1.2) {
+            foam.position.y += 0.002;
+            if (foam.position.y > 0.7) {
                 foam.visible = false;
                 foamActive = false;
             }
@@ -232,7 +232,7 @@ function createFoam() {
 
     foam.visible = false;
 
-    foam.position.set(0, 0.5, 0);
+    foam.position.set(0, 0.35, 0);
 
     anchor.group.add(foam);
 }
