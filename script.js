@@ -10,12 +10,6 @@ const mindarThree = new MindARThree({
 
 const {renderer, scene, camera}=mindarThree;
 const anchor = mindarThree.addAnchor(0);
-anchor.onTargetFound=()=>{
-    modelVisible=true;
-};
-anchor.onTargetLost=()=>{
-    modelVisible=false;
-};
 
 //add lighting 
 const ambientLight = new THREE.AmbientLight(0xffffff,2);
@@ -26,9 +20,17 @@ scene.add(directionLight);
 
 
 const startBTn = document.querySelector("#startAR");
-/* const video= document.querySelector("video"); */
+const video= document.querySelector("video");
 const loader= new GLTFLoader();
 
+anchor.onTargetFound=()=>{
+    modelVisible=true;
+    video.style.filter = "blur(6px)";
+};
+anchor.onTargetLost=()=>{
+    modelVisible=false;
+    video.style.filter = "none";
+};
 let bottle;
 let modelVisible=false;
 let cap;
@@ -155,7 +157,7 @@ startBTn.addEventListener("click",async()=>{
 
             if (capVelocityY < 0 && cap.position.y <= -0.5){
                 capFlying=false;
-                cap.position.y = -1.5;
+                cap.position.y = -0.5;
             }
         }
         renderer.render(scene,camera);
