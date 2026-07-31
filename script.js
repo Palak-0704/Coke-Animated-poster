@@ -92,13 +92,13 @@ startBTn.addEventListener("click",async()=>{
             fizz.position.y+=0.01;
             fizz.position.x+=Math.sin(Date.now()*0.05)*0.001;
         } */
-        if (foamActive && foam) {
+        /* if (foamActive && foam) {
             foam.position.y += 0.002;
             if (foam.position.y > 0.7) {
                 foam.visible = false;
                 foamActive = false;
             }
-        }
+        } */
         renderer.render(scene,camera);
     });
 });
@@ -201,10 +201,10 @@ let foamActive = false;
 function createFoam() {
     foam = new THREE.Group();
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 8; i++) {
 
         const geometry = new THREE.SphereGeometry(
-            0.02 + Math.random() * 0.03,
+            0.008 + Math.random() * 0.012,
             8,
             8
         );
@@ -222,9 +222,9 @@ function createFoam() {
 
         // Bottle ke mouth ke around random position
         bubble.position.set(
-            (Math.random() - 0.5) * 0.15,
-            Math.random() * 0.2,
-            (Math.random() - 0.5) * 0.05
+            (Math.random() - 0.5) * 0.08,
+            Math.random() * 0.06,
+            (Math.random() - 0.5) * 0.03
         );
 
         foam.add(bubble);
