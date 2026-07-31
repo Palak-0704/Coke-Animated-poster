@@ -156,7 +156,9 @@ startBTn.addEventListener("click",async()=>{
             cap.position.y +=capVelocityY;
 
             cap.position.x+=capVelocityX;
-            cap.rotation.z-=0.08;
+            cap.rotation.x += 0.18;
+            cap.rotation.y += 0.12;
+            cap.rotation.z += 0.08;
 
             /* if (capVelocityY < 0 && cap.position.y <= -0.5){
                 capFlying=false;
@@ -188,7 +190,7 @@ frame.addEventListener("click",(event)=>{
         anchor.group.attach(cap);
 
         capVelocityY = 0.08;
-        capVelocityX=0.01;
+        capVelocityX=0;
 
         capOpen=true;
         capFlying=true;
